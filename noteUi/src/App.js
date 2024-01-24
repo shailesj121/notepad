@@ -68,7 +68,7 @@ function App() {
 
 
  const deletenote = (event, noteId, notetitle) => {
-  event.stopPropagation();              //using stopPropagation is usefull if you have click event of the parent elenent example <div "onclick-event"><div "onclick-event"></div></div>
+  event.stopPropagation();              //using stopPropagation is usefull if you have click event of the parent element example <div "onclick-event"><div "onclick-event"></div></div>
   
   alert(`you want to remove ${notetitle} Note`)
 
