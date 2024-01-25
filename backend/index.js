@@ -1,14 +1,12 @@
 import 'dotenv/config'
-import Express from "express";
-import cors from "cors";
+import app from "./app.js"
 
-const app = Express()
+import database from "./db/database.js"
 
-app.use(Express.json());
-app.use(cors());
-
-app.get("/api/notes", (req, res) => {
-    res.json("server is ready")
+database().then(() => {
+    app.listen(process.env.PORT || 4000, () => { console.log(`server is listening at http://localhost:${process.env.PORT}/api/notes`) })
+}).catch((err) => {
+    console.log(`connection error at: ${err}`)
 })
 
-app.listen(process.env.PORT || 4000, () => {console.log(`server is listening at http://localhost:${process.env.PORT}/api/notes`)})
+export { app }
