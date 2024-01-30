@@ -19,14 +19,25 @@ function App() {
     // all the notes will be here 
   ])
 
-  useEffect(() => {
-    axios.get("http://localhost:4000/api/getNotes").then((response) => {
-      setNotes(response.data)
-    }).catch()
-  }, [notes])
-
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
+  // const [submit, setsubmit] = useState()
+
+  async function fatchnotes() { await axios.get("http://localhost:4000/api/getNotes").then((response) => {
+    setNotes(response.data)
+    // console.log(notes)
+    
+   
+  }).catch()}
+
+  useEffect(() => {
+    
+    fatchnotes();
+    
+  })
+
+
+  
 
   const addnotes = async (event) => {
     event.preventDefault();
@@ -37,19 +48,24 @@ function App() {
     //   content: content,
     // }
 
-
+    
     await axios.post("http://localhost:4000/api/notes", {
       "noteTitle": title,
       "noteContent": content
-    }).then(console.log("note has been send")).catch((err) => {
+    }).then().catch((err) => {
       console.log(`error on send notes: ${err}`)
     })
 
 
 
     // setNotes([newNote, ...notes])
+    // setsubmit(true)
     setTitle("")
     setContent("")
+    
+    
+    
+    
   }
 
   const [selectedNote, setSelectedNote] = useState(null)
@@ -58,6 +74,7 @@ function App() {
     setSelectedNote(note)
     setTitle(note.title)
     setContent(note.content)
+    // console.log(note)
 
   }
 
@@ -67,16 +84,16 @@ function App() {
     if (!selectedNote) { return };
 
     const updateNote = {
-      id: selectedNote.id,
+      id: selectedNote.noteId,
       title: title,
       content: content
     }
 
 
     const updateNoteList = notes.map((note) => (
-      note.id === updateNote.id
-        ? updateNote
-        : note
+     note.noteId === updateNote.noteIid
+     ? updateNote
+     : note
     ));
 
 
@@ -96,15 +113,19 @@ function App() {
     // console.log(noteId)
 
     const newnoteId = noteId
-
-    await axios.delete("http://localhost:4000/api/notes", {data:{
-      "noteNumber": newnoteId
-  }
-    }).then(console.log(newnoteId)).catch((err) => {
+    
+    await axios.delete("http://localhost:4000/api/notes", {
+      data: {
+        "noteNumber": newnoteId
+      }
+    }).then()
+      .catch((err) => {
       console.log(`error on deleting note: ${err}`)
     })
     // const updateNotes = notes.filter((note) => note.id !== noteId);
     // setNotes(updateNotes);
+    // setsubmit(true)
+    
   }
 
   return (
