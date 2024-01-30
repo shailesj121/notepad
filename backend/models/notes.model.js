@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 
 const noteSchema = new mongoose.Schema({
-    noteid: {
-        type: Number, 
-    },
+    // noteid: {
+    //     type: Number, 
+    // },
+    noteNumber: Number,
     noteTitle: {
         type: String,
     },
@@ -13,4 +14,4 @@ const noteSchema = new mongoose.Schema({
 
 },{timestamps: true})
 
-export const NoteMondle = mongoose.model(NoteMondle, noteSchema)
+export const NoteMondle = mongoose.model("NoteMondle", noteSchema)

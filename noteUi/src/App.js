@@ -1,31 +1,53 @@
-import React, { useState } from "react";
+import axios from "axios"
+import React, { useEffect, useState } from "react";
 import './App.css';
 
 
+
 function App() {
+
+
   const [showDiv, setShowDiv] = useState(true);
 
   const toggleDiv = () => {
     setShowDiv(!showDiv);
   };
 
+
+
   const [notes, setNotes] = useState([
     // all the notes will be here 
   ])
 
+  useEffect(() => {
+    axios.get("http://localhost:4000/api/getNotes").then((response) => {
+      setNotes(response.data)
+    }).catch()
+  }, [notes])
+
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
 
-  const addnotes = (event) => {
+  const addnotes = async (event) => {
     event.preventDefault();
 
-    const newNote = {
-      id: notes.length + 1,
-      title: title,
-      content: content,
-    }
+    // const newNote = {
+    //   id: notes.length + 1,
+    //   title: title,
+    //   content: content,
+    // }
 
-    setNotes([newNote, ...notes])
+
+    await axios.post("http://localhost:4000/api/notes", {
+      "noteTitle": title,
+      "noteContent": content
+    }).then(console.log("note has been send")).catch((err) => {
+      console.log(`error on send notes: ${err}`)
+    })
+
+
+
+    // setNotes([newNote, ...notes])
     setTitle("")
     setContent("")
   }
@@ -36,12 +58,11 @@ function App() {
     setSelectedNote(note)
     setTitle(note.title)
     setContent(note.content)
-    // console.log(note)
-    // console.log(selectedNote.id)
+
   }
 
   const handelUpdateNote = (event) => {
-    event.preventDefault();   
+    event.preventDefault();
 
     if (!selectedNote) { return };
 
@@ -67,20 +88,30 @@ function App() {
   }
 
 
- const deletenote = (event, noteId, notetitle) => {
-  event.stopPropagation();              //using stopPropagation is usefull if you have click event of the parent element example <div "onclick-event"><div "onclick-event"></div></div>
-  
-  alert(`you want to remove ${notetitle} Note`)
+  const deletenote = async (event, noteId, notetitle) => {
+    event.stopPropagation();              //using stopPropagation is usefull if you have click event of the parent element example <div "onclick-event"><div "onclick-event"></div></div>
 
-  const updateNotes = notes.filter((note) => note.id !== noteId);
-  setNotes(updateNotes);
- }
+    // alert(`you want to remove ${notetitle} Note`)
+
+    // console.log(noteId)
+
+    const newnoteId = noteId
+
+    await axios.delete("http://localhost:4000/api/notes", {data:{
+      "noteNumber": newnoteId
+  }
+    }).then(console.log(newnoteId)).catch((err) => {
+      console.log(`error on deleting note: ${err}`)
+    })
+    // const updateNotes = notes.filter((note) => note.id !== noteId);
+    // setNotes(updateNotes);
+  }
 
   return (
 
     <div className="notes flex justify-start h-screen bg-gray-100 relative" >
       <div className=" h-6 w-6 cursor-pointer block relative top-0">
-        <svg xmlns="<http://www.w3.org/2000/svg>" id="notetoggle" fill="none" viewBox="0 0 24 24" stroke="currentColor" onClick={toggleDiv}><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg xmlns="<http://www.w3.org/2000/svg>" id="notetoggle" fill="none" viewBox="0 0 24 24" stroke="currentColor" onClick={toggleDiv}><path d="M4 6h16M4 12h16M4 18h16" /></svg>
       </div>
 
       {showDiv ? <div className="w-1/7 bg-white shadow-lg rounded-lg p-8 relative">
@@ -116,9 +147,9 @@ function App() {
         <div className="flex flex-wrap justify-center sm:justify-start relative">
 
           {notes.map((note) => (
-            <div key={note.id} className="flex-initial w-64 sm:w-1/2 md:w-1/3 lg:w-1/4 relative ">
+            <div key={note.noteId} className="flex-initial w-64 sm:w-1/2 md:w-1/3 lg:w-1/4 relative ">
               <div onClick={() => handelClickNote(note)}>
-              <button onClick={(event) => deletenote(event, note.id, note.title) } className="absolute top-3 right-5 font-bold">X</button>
+                <button onClick={(event) => deletenote(event, note.noteId, note.title)} className="absolute top-3 right-5 font-bold">X</button>
                 <div className=" border-solid border-2 rounded-md border-sky-500 p-5 m-3">
                   <h2 className="font-bold pb-2">{note.title}</h2>
                   <p>{note.content}</p>
