@@ -6,14 +6,11 @@ import './App.css';
 
 function App() {
 
-
   const [showDiv, setShowDiv] = useState(true);
 
   const toggleDiv = () => {
     setShowDiv(!showDiv);
   };
-
-
 
   const [notes, setNotes] = useState([
     // all the notes will be here 
@@ -21,34 +18,19 @@ function App() {
 
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
-  // const [submit, setsubmit] = useState()
 
-  async function fatchnotes() { await axios.get("http://localhost:4000/api/getNotes").then((response) => {
-    setNotes(response.data)
-    // console.log(notes)
-    
-   
-  }).catch()}
+  const fatchnotes = async () => {
+    await axios.get("http://localhost:4000/api/getNotes").then((response) => {
+      setNotes(response.data)
 
-  useEffect(() => {
-    
-    fatchnotes();
-    
-  })
+    }).catch((err) => console.log("server error"))
+  }
 
-
-  
+  useEffect(() => { fatchnotes()  })
 
   const addnotes = async (event) => {
     event.preventDefault();
 
-    // const newNote = {
-    //   id: notes.length + 1,
-    //   title: title,
-    //   content: content,
-    // }
-
-    
     await axios.post("http://localhost:4000/api/notes", {
       "noteTitle": title,
       "noteContent": content
@@ -56,16 +38,9 @@ function App() {
       console.log(`error on send notes: ${err}`)
     })
 
-
-
-    // setNotes([newNote, ...notes])
-    // setsubmit(true)
     setTitle("")
     setContent("")
-    
-    
-    
-    
+
   }
 
   const [selectedNote, setSelectedNote] = useState(null)
@@ -74,7 +49,6 @@ function App() {
     setSelectedNote(note)
     setTitle(note.title)
     setContent(note.content)
-    // console.log(note)
 
   }
 
@@ -91,9 +65,9 @@ function App() {
 
 
     const updateNoteList = notes.map((note) => (
-     note.noteId === updateNote.noteIid
-     ? updateNote
-     : note
+      note.noteId === updateNote.noteIid
+        ? updateNote
+        : note
     ));
 
 
@@ -108,24 +82,24 @@ function App() {
   const deletenote = async (event, noteId, notetitle) => {
     event.stopPropagation();              //using stopPropagation is usefull if you have click event of the parent element example <div "onclick-event"><div "onclick-event"></div></div>
 
-    // alert(`you want to remove ${notetitle} Note`)
+    alert(`you want to remove ${notetitle} Note`)
 
     // console.log(noteId)
 
     const newnoteId = noteId
-    
+
     await axios.delete("http://localhost:4000/api/notes", {
       data: {
         "noteNumber": newnoteId
       }
     }).then()
       .catch((err) => {
-      console.log(`error on deleting note: ${err}`)
-    })
+        console.log(`error on deleting note: ${err}`)
+      })
     // const updateNotes = notes.filter((note) => note.id !== noteId);
     // setNotes(updateNotes);
     // setsubmit(true)
-    
+
   }
 
   return (
