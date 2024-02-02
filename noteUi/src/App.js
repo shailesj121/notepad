@@ -1,7 +1,7 @@
 import axios from "axios" 
 import React, { useEffect, useState } from "react";
 import './App.css';
-import EmojiPicker from 'emoji-picker-react';
+
 
 
 
@@ -11,26 +11,9 @@ function App() {
 
 
   const [showDiv, setShowDiv] = useState(true);
-  const [emoji, setEmoji] = useState(false)
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
-  // const [useEmoji, setUseEmoji] = useState([])
 
-
-  // const insertemoji = (Emoji) => {
-    
-  //   setContent(content.concat(Emoji))
-  //   return;
-    
-  // }
-
-
-  
-
-  const toggleEmoji = () => {
-    setEmoji(!emoji)
-
-  }
 
   const toggleDiv = () => {
     setShowDiv(!showDiv);
@@ -40,7 +23,6 @@ function App() {
     // all the notes will be here 
   ])
 
-  
 
   const fatchnotes = async () => {
     await axios.get("http://localhost:4000/api/getNotes").then((response) => {
@@ -153,11 +135,6 @@ function App() {
             <textarea id="content" name="content" value={content} onChange={(event) => {setContent(event.target.value)
             console.log(content)}
             } className="pickerTextarea w-full px-3 py-2 border border-gray-300 rounded-md outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter your Content" rows="4" required />
-
-            <btn onClick={toggleEmoji}>emoji</btn>
-
-            {emoji?<div className = "absolute"><EmojiPicker onEmojiClick={emojiPicker} height={500} width={300}  /></div>:null}
-            {/* <Emoji unified="1f423" size="25" /> */}
           </div>
 
           <div className="mb-4">
