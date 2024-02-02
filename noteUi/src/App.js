@@ -1,12 +1,36 @@
-import axios from "axios"
+import axios from "axios" 
 import React, { useEffect, useState } from "react";
 import './App.css';
+import EmojiPicker from 'emoji-picker-react';
+
+
 
 
 
 function App() {
 
+
   const [showDiv, setShowDiv] = useState(true);
+  const [emoji, setEmoji] = useState(false)
+  const [title, setTitle] = useState("")
+  const [content, setContent] = useState("")
+  // const [useEmoji, setUseEmoji] = useState([])
+
+
+  // const insertemoji = (Emoji) => {
+    
+  //   setContent(content.concat(Emoji))
+  //   return;
+    
+  // }
+
+
+  
+
+  const toggleEmoji = () => {
+    setEmoji(!emoji)
+
+  }
 
   const toggleDiv = () => {
     setShowDiv(!showDiv);
@@ -16,8 +40,7 @@ function App() {
     // all the notes will be here 
   ])
 
-  const [title, setTitle] = useState("")
-  const [content, setContent] = useState("")
+  
 
   const fatchnotes = async () => {
     await axios.get("http://localhost:4000/api/getNotes").then((response) => {
@@ -26,7 +49,7 @@ function App() {
     }).catch((err) => console.log("server error"))
   }
 
-  useEffect(() => { fatchnotes()  })
+  useEffect(() => { fatchnotes() })
 
   const addnotes = async (event) => {
     event.preventDefault();
@@ -49,6 +72,7 @@ function App() {
     setSelectedNote(note)
     setTitle(note.title)
     setContent(note.content)
+    // console.log( setTitle(note.title))
 
   }
 
@@ -77,7 +101,6 @@ function App() {
     setSelectedNote(null)
 
   }
-
 
   const deletenote = async (event, noteId, notetitle) => {
     event.stopPropagation();              //using stopPropagation is usefull if you have click event of the parent element example <div "onclick-event"><div "onclick-event"></div></div>
@@ -117,15 +140,24 @@ function App() {
               Title
             </label>
 
-            <input type="text" id="title" name="title" value={title} onChange={(event) => setTitle(event.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Your Title" required />
+            <input type="text" id="title" name="title" value={title} onChange={(event) => {setTitle(event.target.value)}} className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Your Title" required />
+            
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 relative">
             <label htmlFor="message" className="block text-gray-600 text-sm font-medium mb-2">
               Your Content
             </label>
+            
 
-            <textarea id="content" name="content" value={content} onChange={(event) => setContent(event.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-md outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter your Content" rows="4" required />
+            <textarea id="content" name="content" value={content} onChange={(event) => {setContent(event.target.value)
+            console.log(content)}
+            } className="pickerTextarea w-full px-3 py-2 border border-gray-300 rounded-md outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Enter your Content" rows="4" required />
+
+            <btn onClick={toggleEmoji}>emoji</btn>
+
+            {emoji?<div className = "absolute"><EmojiPicker onEmojiClick={emojiPicker} height={500} width={300}  /></div>:null}
+            {/* <Emoji unified="1f423" size="25" /> */}
           </div>
 
           <div className="mb-4">
