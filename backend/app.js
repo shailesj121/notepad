@@ -9,7 +9,7 @@ const app = Express()
 app.use(Express.json());
 app.use(cors({
     origin: ["notepad-m5xg.vercel.app"],
-    method: [POST, GET, PUT, DELETE],
+    methods: [POST, GET, PUT, DELETE],
     credentials: true
 }));
 
