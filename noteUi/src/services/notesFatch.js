@@ -16,9 +16,17 @@ export const getNotes = async (url) => {
     }
 }
 
-export const deleteNote = async (url, data)=> {
+export const deleteNote = async (url, data) => {
     try {
         return await axios.delete(`http://localhost:4000/api${url}`, data)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const UpdateNote = async (url, data) => {
+    try {
+        return await axios.put(`http://localhost:4000/api${url}`, data)
     } catch (error) {
         console.log(error)
     }
