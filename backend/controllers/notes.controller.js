@@ -7,18 +7,21 @@ import asyncHandler from "../utils/asyncHandler.js"
 const deleteNoteController = asyncHandler( 
 
 async (req, res) => {
+   try{
    const {noteNumber} = req.body
     console.log("noteNumber:", noteNumber);
       const delNote = await NoteMondle.findOneAndDelete({noteNumber: noteNumber})
       // console.log(delNote)
       if(!delNote) throw "not deleted"
- 
 
+      res.status(200).json({
+         "messange": "success"
+      })
+   }catch(error){
+      throw(error)
+   } 
 }
 );
-
-
-
 
 
 const notecontroller = asyncHandler( 
@@ -79,12 +82,8 @@ const noteGetController = asyncHandler( async (req, res) => {
                   title: apiData.noteTitle,
                content: apiData.noteContent,
             }
-      )));
-
-      
+      )));      
 })
-
-
 
 export { notecontroller, noteGetController };
 export { deleteNoteController }

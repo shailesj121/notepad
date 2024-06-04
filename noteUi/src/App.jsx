@@ -1,14 +1,10 @@
-import axios from "axios" 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import './App.css';
-
-
-
-
+import { deleteNote, postNote } from "./services/notesFatch.js";
+import { getNotes } from "./services/notesFatch.js";
 
 
 function App() {
-
 
   const [showDiv, setShowDiv] = useState(true);
   const [title, setTitle] = useState("")
@@ -24,10 +20,14 @@ function App() {
     setShowDiv(!showDiv);
   };
 
+  
   const fatchnotes = async () => {
-    await axios.get("http://localhost:4000/api/getNotes").then((response) => {
-      setNotes(response.data)
-    }).catch((err) => console.log("server error"))
+    const result = await getNotes("/getNotes")
+    if(result){
+      setNotes(result?.data)
+      return
+    }
+    console.log("notfatched")
   }
 
   useEffect(() => { fatchnotes() }, [])
@@ -35,13 +35,11 @@ function App() {
 
   const addnotes = async (event) => {
     event.preventDefault();
-
-    await axios.post("http://localhost:4000/api/notes", {
+    const result = await postNote("/notes",{
       "noteTitle": title,
       "noteContent": content
-    }).then().catch((err) => {
-      console.log(`error on send notes: ${err}`)
     })
+    console.log(result)
     fatchnotes()
     setTitle("")
     setContent("")
@@ -54,14 +52,12 @@ function App() {
     setSelectedNote(note)
     setTitle(note.title)
     setContent(note.content)
-    // console.log( setTitle(note.title))
-
   }
 
   const handelUpdateNote = (event) => {
     event.preventDefault();
 
-    if (!selectedNote) { return };
+    if (!selectedNote) { return }
 
     const updateNote = {
       id: selectedNote.noteId,
@@ -86,24 +82,19 @@ function App() {
 
   const deletenote = async (event, noteId, notetitle) => {
     event.stopPropagation();              //using stopPropagation is usefull if you have click event of the parent element example <div "onclick-event"><div "onclick-event"></div></div>
-
+console.log(noteId)
     alert(`you want to remove ${notetitle} Note`)
-
-    // console.log(noteId)
-
     const newnoteId = noteId
-
     setLoading(true)
-    fatchnotes()
-    
-    await axios.delete("http://localhost:4000/api/notes", {
+    const result = await deleteNote("/notes", {
       data: {
         "noteNumber": newnoteId
       }
-    }).then(setLoading(false),fatchnotes())
-      .catch((err) => {
-        console.log(`error on deleting note: ${err}`)
-      });
+    })
+    if(result){
+    setLoading(false);
+    fatchnotes()
+    }
       
   }
 
@@ -147,7 +138,8 @@ function App() {
           </div>
         </form>
       </div> : null}
-      <div className="w-full bg-gray-800 shadow-lg rounded-lg  conent-note">
+    
+      <div  className="w-full bg-gray-800 shadow-lg rounded-lg  conent-note">
         <div className="bg-gray-700	 p-2">
           <input name= "search" value = {search} onChange={(event) => {setSearch(event.target.value)}} type="text" placeholder="Search.."/>
         </div>
