@@ -18,7 +18,7 @@ function App() {
   };
 
   const fatchnotes = async () => {
-    const result = await getNotes("/getNotes");
+    const result = await getNotes("/getnotes");
     if (result) {
       setNotes(result?.data);
       return;
