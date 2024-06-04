@@ -8,9 +8,7 @@ const app = Express()
 
 app.use(Express.json());
 app.use(cors({
-    origin: "*",
-    methods: ["POST", "GET", "PUT", "DELETE"],
-    credentials: true
+    origin: ["https://notepad-one-orcin.vercel.app"]
 }));
 
 
