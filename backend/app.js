@@ -7,9 +7,7 @@ import { Router } from "express";
 const app = Express()
 
 app.use(Express.json());
-app.use(cors({
-    origin: ["https://notepad-one-orcin.vercel.app"]
-}));
+app.use(cors());
 
 
 export default app
