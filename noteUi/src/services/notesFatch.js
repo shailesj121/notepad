@@ -15,9 +15,7 @@ export const postNote = async (url, data) => {
 export const getNotes = async (url) => {
     try {
         // return await axios.get(`${FATCH_URL_API}${url}`)//for local Fatch
-        return await axios.get(`${Varcel_Fatch_Url_API}${url}`, { crossdomain: true,
-            withCredentials: true
-         })//for local Fatch
+        return await axios.get(`${Varcel_Fatch_Url_API}${url}`)//for local Fatch
     } catch (err) {
         console.log(err)
     }
