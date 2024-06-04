@@ -18,12 +18,12 @@ export default app
 import router from "./routes/notes.route.js";
 
 import bodyParser from "body-parser";
+
+app.use("/api", router);
 app.use("/", (req,res, next)=> {
     res.status(200).json(
         {
             Message: "OK"
         }
     )
-    next()
 })
-app.use("/api", router);
