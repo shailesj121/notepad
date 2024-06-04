@@ -10,4 +10,5 @@ database().then(() => {
     console.log(`connection error at: ${err}`)
 })
 
-export { app }
+
+// export { app }
