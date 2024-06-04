@@ -5,7 +5,7 @@ import { FATCH_URL_API, Varcel_Fatch_Url_API } from "../constant";
 export const postNote = async (url, data) => {
     try {
         // return await axios.post(`${FATCH_URL_API}${url}`, data) //for local Fatch
-        return await axios.post(`${Varcel_Fatch_Url_API}${url}`, data) //for Varcel Fatch
+        return await axios.post(`${Varcel_Fatch_Url_API}${url}`, data, ) //for Varcel Fatch
 
     } catch (error) {
         console.log(error)
@@ -15,7 +15,7 @@ export const postNote = async (url, data) => {
 export const getNotes = async (url) => {
     try {
         // return await axios.get(`${FATCH_URL_API}${url}`)//for local Fatch
-        return await axios.get(`${Varcel_Fatch_Url_API}${url}`)//for local Fatch
+        return await axios.get(`${Varcel_Fatch_Url_API}${url}`, {crossdomain: true})//for local Fatch
     } catch (err) {
         console.log(err)
     }
