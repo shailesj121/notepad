@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FATCH_URL_API, Varcel_Fatch_Url_API } from "../constant";
+import { Varcel_Fatch_Url_API } from "../constant";
 
 
 export const postNote = async (url, data) => {
