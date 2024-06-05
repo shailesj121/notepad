@@ -1,5 +1,5 @@
 import mongoose, {Schema} from "mongoose";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 
 const signupSchema = new Schema({
@@ -29,7 +29,7 @@ const signupSchema = new Schema({
 // password encryptcy method
 
 signupSchema.pre("save", async function(next){
-    this.password = bcrypt.hash(this.password, 10)
+    this.password = await bcrypt.hash(this.password, 10)
     next()
 })
 
