@@ -3,6 +3,7 @@ import "../App.css";
 import { deleteNote, postNote } from "../services/notesFatch.js";
 import { getNotes } from "../services/notesFatch.js";
 import { UpdateNote } from "../services/notesFatch.js";
+import { Button } from "antd";
 
 function Home() {
   const [showDiv, setShowDiv] = useState(true);
@@ -157,26 +158,17 @@ function Home() {
             <div className="mb-4">
               {selectedNote ? (
                 <div className="flex">
-                  <button
-                    type="submit"
-                    className="w-1/2 px-3 py-4 text-white bg-indigo-500 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                  >
-                    Update
-                  </button>
-                  <button
-                    type="submit"
-                    className="w-1/2 px-3 py-4 text-white bg-indigo-500 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                  >
-                    Cancel
-                  </button>
+                  <Button type="primary">
+                    <input type="submit" />
+                  </Button>
+                  <Button type="default">
+                    <input type="submit" value="cancel" />
+                  </Button>
                 </div>
               ) : (
-                <button
-                  type="submit"
-                  className="w-full px-3 py-4 text-white bg-indigo-500 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                >
-                  Publish
-                </button>
+                <Button type="primary">
+                    <input type="submit" value="Publish" />
+                  </Button>
               )}
             </div>
           </form>
