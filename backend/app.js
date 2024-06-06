@@ -7,7 +7,10 @@ import { Router } from "express";
 const app = Express()
 
 app.use(Express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}));
 
 export default app
 
@@ -16,9 +19,9 @@ export default app
 
 import router from "./routes/notes.route.js";
 import userRouter from "./routes/signup.route.js"
+import bodyParser from "body-parser";
 
-// import bodyParser from "body-parser";
-
+app.use(bodyParser.json())
 app.use("/api", router);
 app.use("/auth", userRouter)
 app.use("/", (req,res, next)=> {

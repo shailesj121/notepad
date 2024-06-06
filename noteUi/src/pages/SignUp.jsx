@@ -1,7 +1,9 @@
 import  { useState } from 'react';
 import { signUp } from '../services/signup';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -19,11 +21,12 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await signUp("/signup", formData) //return unique id
-    if(result){
-      console.log(result)
-        console.log("signup success")
-    }  
+    if(!result){return console.log("no result found")}  
+        navigate("/")
   };
+ 
+   
+  
 
   return (
     <div className='relative'>
