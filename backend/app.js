@@ -15,10 +15,12 @@ export default app
 // Routes
 
 import router from "./routes/notes.route.js";
+import userRouter from "./routes/signup.route.js"
 
-import bodyParser from "body-parser";
+// import bodyParser from "body-parser";
 
 app.use("/api", router);
+app.use("/auth", userRouter)
 app.use("/", (req,res, next)=> {
     res.status(200).json(
         {

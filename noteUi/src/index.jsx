@@ -3,17 +3,21 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
-import App from "./App";
+// import App from "./App";
 import Login from "./pages/login";
 import NoPage from "./pages/noPage";
+import Home from "./pages/Notes";
+import Signup from "./pages/SignUp";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />}></Route>
+        <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>
