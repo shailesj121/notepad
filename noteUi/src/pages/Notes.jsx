@@ -4,6 +4,8 @@ import { deleteNote, postNote } from "../services/notesFatch.js";
 import { getNotes } from "../services/notesFatch.js";
 import { UpdateNote } from "../services/notesFatch.js";
 import { Button } from "antd";
+import { logout } from "../utils/auth.js";
+import { Navigate } from "react-router-dom";
 
 function Home() {
   const [showDiv, setShowDiv] = useState(true);
@@ -87,6 +89,13 @@ function Home() {
       fatchnotes();
     }
   };
+
+  function logoutUser() {
+    const isLogout = logout()
+    if(isLogout) {
+      return <Navigate to={"../login"}/>
+    }
+  }
 
   return (
     <div className="notes flex justify-start h-screen  relative">
@@ -185,7 +194,7 @@ function Home() {
             }}
             type="text"
             placeholder="Search.."
-          />
+          /> <button onClick={()=>logoutUser()}>LogOut</button>
         </div>
         <div className="flex flex-wrap justify-center sm:justify-start relative overflow-hidden">
           {loading ? (
