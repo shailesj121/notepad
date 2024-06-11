@@ -8,7 +8,7 @@ const app = Express()
 
 app.use(Express.json());
 app.use(cors({
-    origin: '/',
+    origin: 'https://notepad-ashy.vercel.app',
     credentials: true
 }));
 
