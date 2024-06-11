@@ -52,11 +52,10 @@ const loginUser = asyncHandler(async (req, res) => {
     })
 
     const resulthashed = await bcrypt.compare(password, userNameExist.password)
-    console.log(resulthashed)
     if (!resulthashed) return res.json({
         message: "password"
     })
-
+    console.log(userNameExist)
     const refreshToken = await generateRefreshToken(userNameExist._id)
     console.log(refreshToken)
 
