@@ -24,7 +24,6 @@ function Home() {
 
   const fatchnotes = async () => {
     const {userid} = isUserLoggedIn()
-    console.log(userid)
     const result = await getNotes(`/getnotes`, userid);
     if (result) {
       setNotes(result?.data);
@@ -58,7 +57,6 @@ function Home() {
 
   const handelUpdateNote = async (event) => {
     event.preventDefault();
-    console.dir(event.target);
     if (!selectedNote) {
       return;
     }
