@@ -7,10 +7,10 @@ const generateRefreshToken = async (userid) => {
         const user = await User.findById(userid)
         const refreshtoken = await user.generateRefreshToken()
         user.refreshtoken = refreshtoken
-        user.save({ validateBeforeSave: false })
+        await user.save({ validateBeforeSave: false })
         return refreshtoken
     } catch (error) {
-        console.log(error)
+        console.log("error is" + error)
     }
 }
 
@@ -56,7 +56,7 @@ const loginUser = asyncHandler(async (req, res) => {
         message: "password"
     })
     console.log(userNameExist)
-    const refreshToken = await generateRefreshToken(userNameExist._id)
+    const refreshToken = await generateRefreshToken(userNameExist?._id)
     console.log(refreshToken)
 
     res.cookie("Refresh_token", refreshToken).status(200).json({
