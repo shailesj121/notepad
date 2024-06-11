@@ -7,9 +7,7 @@ import { Router } from "express";
 const app = Express()
 
 app.use(Express.json());
-app.use(cors({
-    credentials: true
-}));
+app.use(cors());
 
 export default app
 
