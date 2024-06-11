@@ -4,8 +4,9 @@ import { deleteNote, postNote } from "../services/notesFatch.js";
 import { getNotes } from "../services/notesFatch.js";
 import { UpdateNote } from "../services/notesFatch.js";
 import { Button } from "antd";
-import { logout } from "../utils/auth.js";
-import { Navigate } from "react-router-dom";
+import { isUserLoggedIn, logout } from "../utils/auth.js";
+import { useNavigate } from "react-router-dom";
+import { CloseCircleTwoTone } from "@ant-design/icons";
 
 function Home() {
   const [showDiv, setShowDiv] = useState(true);
@@ -15,13 +16,16 @@ function Home() {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [selectedNote, setSelectedNote] = useState(null);
+  const navigate = useNavigate();
 
   const toggleDiv = () => {
     setShowDiv(!showDiv);
   };
 
   const fatchnotes = async () => {
-    const result = await getNotes("/getnotes");
+    const {userid} = isUserLoggedIn()
+    console.log(userid)
+    const result = await getNotes(`/getnotes`, userid);
     if (result) {
       setNotes(result?.data);
       return;
@@ -35,11 +39,12 @@ function Home() {
 
   const addnotes = async (event) => {
     event.preventDefault();
-    const result = await postNote("/notes", {
+    const {userid} = isUserLoggedIn()
+    await postNote("/notes", {
+      User: userid,
       noteTitle: title,
       noteContent: content,
     });
-    console.log(result);
     fatchnotes();
     setTitle("");
     setContent("");
@@ -53,7 +58,7 @@ function Home() {
 
   const handelUpdateNote = async (event) => {
     event.preventDefault();
-
+    console.dir(event.target);
     if (!selectedNote) {
       return;
     }
@@ -75,7 +80,6 @@ function Home() {
 
   const deletenote = async (event, noteId, notetitle) => {
     event.stopPropagation(); //using stopPropagation is usefull if you have click event of the parent element example <div "onclick-event"><div "onclick-event"></div></div>
-    console.log(noteId);
     alert(`you want to remove ${notetitle} Note`);
     const newnoteId = noteId;
     setLoading(true);
@@ -91,15 +95,23 @@ function Home() {
   };
 
   function logoutUser() {
-    const isLogout = logout()
-    if(isLogout) {
-      return <Navigate to={"../login"}/>
+    const isLogout = logout();
+    if (isLogout) {
+      navigate("/login");
+      return;
     }
+  }
+
+  function UpdateCancel() {
+    setSelectedNote(null);
+    setTitle("");
+    setContent("");
   }
 
   return (
     <div className="notes flex justify-start h-screen  relative">
-      <div className=" h-6 w-6 cursor-pointer block relative top-0">
+      {/* <div className="lightbox"></div> */}
+      <div className=" h-6 w-6 cursor-pointer block absolute z-10 top-0">
         <svg
           xmlns="<http://www.w3.org/2000/svg>"
           id="notetoggle"
@@ -113,7 +125,7 @@ function Home() {
       </div>
 
       {showDiv ? (
-        <div className="w-1/7 bg-gray-400 shadow-lg rounded-lg p-8 mr-2 relative">
+        <div className="w-1/7 sidebar shadow-lg p-8 relative">
           <form
             onSubmit={(event) =>
               selectedNote ? handelUpdateNote(event) : addnotes(event)
@@ -155,7 +167,6 @@ function Home() {
                 value={content}
                 onChange={(event) => {
                   setContent(event.target.value);
-                  console.log(content);
                 }}
                 className="pickerTextarea w-full px-3 py-2 border border-gray-300 rounded-md outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 placeholder="Enter your Content"
@@ -170,23 +181,24 @@ function Home() {
                   <Button type="primary">
                     <input type="submit" />
                   </Button>
-                  <Button type="default">
+                  <Button onClick={UpdateCancel} type="default">
                     <input type="submit" value="cancel" />
                   </Button>
                 </div>
               ) : (
                 <Button type="primary">
-                    <input type="submit" value="Publish" />
-                  </Button>
+                  <input type="submit" value="Publish" />
+                </Button>
               )}
             </div>
           </form>
         </div>
       ) : null}
 
-      <div className="w-full shadow-lg rounded-lg  conent-note">
-        <div className="bg-gray-700	 p-2">
+      <div className="w-full lightbox shadow-lg relative conent-note">
+        <div className="flex justify-between p-2">
           <input
+            className="input_search"
             name="search"
             value={search}
             onChange={(event) => {
@@ -194,9 +206,12 @@ function Home() {
             }}
             type="text"
             placeholder="Search.."
-          /> <button onClick={()=>logoutUser()}>LogOut</button>
+          />{" "}
+          <Button className="logout_button" onClick={() => logoutUser()}>
+            LogOut
+          </Button>
         </div>
-        <div className="flex flex-wrap justify-center sm:justify-start relative overflow-hidden">
+        <div className="flex note_cards flex-wrap justify-center sm:justify-start relative overflow-hidden">
           {loading ? (
             <div>please wait data is deleating... </div>
           ) : (
@@ -207,13 +222,14 @@ function Home() {
               >
                 <div onClick={() => handelClickNote(note)}>
                   <button
+                    className="absolute top-3 right-5 font-bold"
                     onClick={(event) =>
                       deletenote(event, note.noteId, note.title)
                     }
-                    className="absolute top-3 right-5 font-bold"
                   >
-                    X
+                    <CloseCircleTwoTone />
                   </button>
+
                   <div className=" bg-gray-600  border-solid rounded-md m-3">
                     <h2 className="font-bold text-slate-50 pl-5 pt-2 pb-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
                       {note.title}

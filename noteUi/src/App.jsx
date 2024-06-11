@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 import { deleteNote, postNote } from "./services/notesFatch.js";
 import { getNotes } from "./services/notesFatch.js";
 import { UpdateNote } from "./services/notesFatch.js";
+import "./App.css";
 
 function App() {
   const [showDiv, setShowDiv] = useState(true);
@@ -32,11 +32,10 @@ function App() {
 
   const addnotes = async (event) => {
     event.preventDefault();
-    const result = await postNote("/notes", {
+    await postNote("/notes", {
       noteTitle: title,
       noteContent: content,
     });
-    console.log(result);
     fatchnotes();
     setTitle("");
     setContent("");
@@ -51,9 +50,7 @@ function App() {
   const handelUpdateNote = async (event) => {
     event.preventDefault();
 
-    if (!selectedNote) {
-      return;
-    }
+    if(!selectedNote) return;
 
     const updateNotereq = {
       id: selectedNote.noteId,
@@ -72,7 +69,6 @@ function App() {
 
   const deletenote = async (event, noteId, notetitle) => {
     event.stopPropagation(); //using stopPropagation is usefull if you have click event of the parent element example <div "onclick-event"><div "onclick-event"></div></div>
-    console.log(noteId);
     alert(`you want to remove ${notetitle} Note`);
     const newnoteId = noteId;
     setLoading(true);
@@ -230,3 +226,5 @@ function App() {
 }
 
 export default App;
+
+

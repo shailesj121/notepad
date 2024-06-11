@@ -12,10 +12,14 @@ export const postNote = async (url, data) => {
     }
 }
 
-export const getNotes = async (url) => {
+export const getNotes = async (url, userId) => {
     try {
         // return await axios.get(`${FATCH_URL_API}${url}`)//for local Fatch
-        return await axios.get(`${FATCH_URL_API}${url}`)//for local Fatch
+        return await axios.get(`${FATCH_URL_API}${url}`, {
+            headers: {
+                Authorization: `barear ${userId}`
+            }
+        })//for local Fatch
     } catch (err) {
         console.log(err)
     }

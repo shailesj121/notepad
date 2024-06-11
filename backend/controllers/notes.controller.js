@@ -4,15 +4,15 @@ import asyncHandler from "../utils/asyncHandler.js"
 
 
 const deleteNoteController = asyncHandler(
+   //getting the id of the note
+   //find that note on database and delete it 
+   //after the send the response
 
    async (req, res) => {
       try {
          const { noteNumber } = req.body
-         console.log("noteNumber:", noteNumber);
          const delNote = await NoteMondle.findOneAndDelete({ noteNumber: noteNumber })
-         // console.log(delNote)
          if (!delNote) throw "not deleted"
-
          res.status(200).json({
             "messange": "success"
          })
@@ -23,6 +23,7 @@ const deleteNoteController = asyncHandler(
 );
 
 const updateNoteController = asyncHandler(
+
    async (req, res) => {
       try {
          const reqUpdateNotes = req.body
@@ -36,7 +37,7 @@ const updateNoteController = asyncHandler(
          })
          await updateNote.save()
          res.status(200).json({
-            message: "success Update", 
+            message: "success Update",
          })
       } catch (error) {
          console.log(error)
@@ -52,35 +53,31 @@ const notecontroller = asyncHandler(
    // create note object- create entery in DB
    // check for note creation
    // return rsponse
+
    async (req, res) => {
-      const { noteNumber, noteTitle, noteContent } = req.body
+      const { noteTitle, noteContent, User } = req.body
 
       if (noteTitle === "" || noteContent === "") {
          throw new apiError(400, "Note field required both noteTitle and noteContent")
       }
-      console.log("noteNumber:", noteNumber);
-      console.log("noteTitle:", noteTitle);
-      console.log("noteContent:", noteContent)
-
-
       const existedNote = await NoteMondle.findOne({ noteTitle })
 
       if (existedNote) {
          throw new apiError(401, "note Already exist")
       }
-      console.log(existedNote)
+
+      // creating noteid by finding the length of total notes and adding 1 to the total notes
       let noteId = await NoteMondle.find()
       noteId = new Number(noteId.length)
       if (!noteId) noteId = 0;
       ++noteId
-      //   console.log(noteId)
-      //   typeof(noteId)
 
       const insertNote = await NoteMondle.create(
          {
             noteNumber: noteId,
             noteTitle: noteTitle,
-            noteContent: noteContent
+            noteContent: noteContent,
+            user: User,
          }
       )
 
@@ -95,8 +92,10 @@ const notecontroller = asyncHandler(
 );
 
 const noteGetController = asyncHandler(async (req, res) => {
-   const getNotes = await NoteMondle.find()
-
+   const userId = req?.headers?.authorization?.split(" ")[1]
+   const getNotes = await NoteMondle.find({
+      user: Object(userId)
+   })
    res.json(getNotes.map((apiData) => (
       {
          noteId: apiData.noteNumber,

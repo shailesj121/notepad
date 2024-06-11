@@ -1,0 +1,38 @@
+.lightbox {
+    --first: conic-gradient(from -90deg at 85% 50px, #1b1b1b, rgb(51, 65, 82));
+    --second: conic-gradient(from 90deg at 15% 50px,  rgb(51, 65, 82), #1b1b1b);
+    background-image: var(--first), var(--second);
+    background-position: 100% 50%, 0.1% 50%;
+    background-size: 52% 100%;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.input_search {
+    background: transparent;
+    border: 1px solid white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-left: 7%;
+}
+
+#particles-js {
+    position: absolute;
+    width: 60%;
+    height: 64%;
+    top: 50px;
+    left: 28%;
+}
+
+.sidebar{
+background:rgb(51, 65, 82)
+}
+
+.logout_button {
+    margin-right: 7%;
+}
+
+.note_cards{
+padding-left: 7%;
+padding-right: 7%;
+}

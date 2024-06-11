@@ -8,5 +8,3 @@ database().then(() => {
 }).catch((err) => {
     console.log(`connection error at: ${err}`)
 })
-
-// export { app }

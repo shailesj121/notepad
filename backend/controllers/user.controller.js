@@ -48,18 +48,18 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const userNameExist = await User.findOne({ username })
     if (!userNameExist) return res.json({
-        message: "userName not Correct"
+        message: "username"
     })
 
     const resulthashed = await bcrypt.compare(password, userNameExist.password)
     console.log(resulthashed)
     if (!resulthashed) return res.json({
-        message: "password incorrect"
+        message: "password"
     })
 
     const refreshToken = await generateRefreshToken(userNameExist._id)
 
-    res.cookie("refresh_token", refreshToken).status(200).json({
+    res.cookie("Refresh_token", refreshToken).status(200).json({
         message: "user Successfully login"
     })
 
