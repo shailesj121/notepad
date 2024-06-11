@@ -7,7 +7,7 @@ const generateRefreshToken = async (userid) => {
         const user = await User.findById(userid)
         const refreshtoken = await user.generateRefreshToken()
         user.refreshtoken = refreshtoken
-        user.save({ validateBeforeSave: false })
+        await user.save({ validateBeforeSave: false })
         return refreshtoken
     } catch (error) {
         console.log(error)
