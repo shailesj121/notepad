@@ -24,3 +24,10 @@ import bodyParser from "body-parser";
 app.use(bodyParser.json())
 app.use("/api", router);
 app.use("/auth", userRouter)
+app.use("/", (req,res, next)=> {
+    res.status(200).json(
+        {
+            Message: "OK"
+        }
+    )
+})
