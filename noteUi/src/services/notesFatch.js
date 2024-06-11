@@ -1,11 +1,11 @@
 import axios from "axios";
-import {FATCH_URL_API } from "../constant";
+import {Varcel_Fatch_Url_API } from "../constant";
 
 
 export const postNote = async (url, data) => {
     try {
         // return await axios.post(`${FATCH_URL_API}${url}`, data) //for local Fatch
-        return await axios.post(`${FATCH_URL_API}${url}`, data,) //for Varcel Fatch
+        return await axios.post(`${Varcel_Fatch_Url_API}${url}`, data,) //for Varcel Fatch
 
     } catch (error) {
         console.log(error)
@@ -15,7 +15,7 @@ export const postNote = async (url, data) => {
 export const getNotes = async (url, userId) => {
     try {
         // return await axios.get(`${FATCH_URL_API}${url}`)//for local Fatch
-        return await axios.get(`${FATCH_URL_API}${url}`, {
+        return await axios.get(`${Varcel_Fatch_Url_API}${url}`, {
             headers: {
                 Authorization: `barear ${userId}`
             }
@@ -28,7 +28,7 @@ export const getNotes = async (url, userId) => {
 export const deleteNote = async (url, data) => {
     try {
         // return await axios.delete(`${FATCH_URL_API}${url}`, data)
-        return await axios.delete(`${FATCH_URL_API}${url}`, data)
+        return await axios.delete(`${Varcel_Fatch_Url_API}${url}`, data)
 
     } catch (error) {
         console.log(error)
@@ -38,7 +38,7 @@ export const deleteNote = async (url, data) => {
 export const UpdateNote = async (url, data) => {
     try {
         // return await axios.put(`${FATCH_URL_API}${url}`, data)
-        return await axios.put(`${FATCH_URL_API}${url}`, data)
+        return await axios.put(`${Varcel_Fatch_Url_API}${url}`, data)
     } catch (error) {
         console.log(error)
     }
