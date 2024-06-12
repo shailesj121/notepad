@@ -31,7 +31,8 @@ const UserSignup = asyncHandler(async (req, res) => {
     const newUser = await User.create(result)
     const refreshtoken = await generateRefreshToken(newUser._id)
     res.cookie("Refresh_token", refreshtoken, {
-        secure: true
+        secure: true,
+        sameSite: 'strict',
     })
         .status(200).json({
             message: "successfullt created",
