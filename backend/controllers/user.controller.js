@@ -59,7 +59,10 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const refreshToken = await generateRefreshToken(userNameExist._id)
 
-    res.cookie("Refresh_token", refreshToken).status(200).json({
+    res.cookie("Refresh_token", refreshToken, {
+        proxy : true,
+        secure: true
+    }).status(200).json({
         message: "user Successfully login"
     })
 

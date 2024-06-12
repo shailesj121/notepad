@@ -17,7 +17,7 @@ root.render(
       <Route path="/login" element={<Login />}></Route>
       <Route path="/signup" element={<Signup />}></Route>
         <Route element={<ProtactedRoute />}>
-          <Route index path="/" element={<Home />}/>
+          <Route index element={<Home />}/>
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
