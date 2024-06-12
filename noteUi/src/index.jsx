@@ -14,11 +14,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-      <Route path="/login" element={<Login />}></Route>
+      <Route path="/" element={<Login />}></Route>
       <Route path="/signup" element={<Signup />}></Route>
         <Route element={<ProtactedRoute />}>
-          <Route index path="/" element={<Home />}/>
-          <Route path="*" element={<NoPage />} />
+          <Route index path="/user/home" element={<Home />}/>
+          <Route path="/user/*" element={<NoPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

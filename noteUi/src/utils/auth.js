@@ -17,7 +17,3 @@ export const logout = () => {
 cookies.remove("Refresh_token")
     return true;
 }
-
-export const login = () => {
-    
-}
