@@ -6,6 +6,6 @@ export const ProtactedRoute = () => {
   const navigate = useNavigate();
   const { isTokenExpired } = isUserLoggedIn();
   const loggedin = isTokenExpired;
-  if (loggedin) return navigate("/login");
+  if (loggedin) return navigate("login");
   return <Outlet />;
 };
