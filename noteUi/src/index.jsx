@@ -4,7 +4,7 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/login";
-import NoPage from "./pages/noPage";
+// import NoPage from "./pages/noPage";
 import Home from "./pages/Notes";
 import Signup from "./pages/SignUp";
 import  {ProtactedRoute}  from "./utils/protactedRoute";
@@ -14,11 +14,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-      <Route path="" element={<Login />}></Route>
+      <Route path="/login" element={<Login />}></Route>
       <Route path="signup" element={<Signup />}></Route>
         <Route element={<ProtactedRoute />}>
-          <Route index path="user/home" element={<Home />}/>
-          <Route path="user/*" element={<NoPage />} />
+          <Route path="/user" element={<Home />}/>
+          {/* <Route path="/user/*" element={<NoPage />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>
