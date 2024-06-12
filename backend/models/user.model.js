@@ -26,8 +26,8 @@ const userSchema = new Schema({
 })
 
 
-userSchema.methods.generateRefreshToken = async function () {
-    return await jwt.sign(
+userSchema.methods.generateRefreshToken = function () {
+    return jwt.sign(
         {
             _id: this._id,
         }, process.env.REFRESS_TOKEN_SECRET,

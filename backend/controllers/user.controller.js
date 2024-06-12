@@ -6,7 +6,6 @@ const generateRefreshToken = async (userid) => {
     try {
         const user = await User.findById(userid)
         const refreshtoken = await user.generateRefreshToken()
-        console.log(refreshtoken)
         user.refreshtoken = refreshtoken
         await user.save({ validateBeforeSave: false })
         return refreshtoken

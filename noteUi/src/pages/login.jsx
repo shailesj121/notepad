@@ -19,6 +19,7 @@ export default function Login() {
       password: password.value,
     };
     const result = await login("/login", userfieldsvalue);
+    console.log(result)
 
     if (result.data.message === "username") {
       setUservalidation({ username: "username incorrect" });
