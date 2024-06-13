@@ -21,6 +21,7 @@ export default app
 import router from "./routes/notes.route.js";
 import userRouter from "./routes/user.route.js"
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 
 app.use(bodyParser.json())
 app.use(cookieParser());
