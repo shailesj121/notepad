@@ -13,8 +13,7 @@
       "dest": "/",
       "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
       "headers": {
-        "Access-Control-Allow-Origin": "https://notepad-ashy.vercel.app",
-        "SameSite": "none"
+        "Access-Control-Allow-Origin": "https://notepad-rho-pink.vercel.app/"
       }
     }
   ]
