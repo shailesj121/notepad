@@ -30,7 +30,9 @@ const UserSignup = asyncHandler(async (req, res) => {
     result.password = await bcrypt.hash(result.password, 10)
     const newUser = await User.create(result)
     const refreshtoken = await generateRefreshToken(newUser._id)
-    res.cookie("Refresh_token", refreshtoken)
+    res.cookie("Refresh_token", refreshtoken, {
+        domain: "https://notepad-rho-pink.vercel.app/"
+    })
         .status(200).json({
             message: "successfully created",
         })
@@ -57,7 +59,9 @@ const loginUser = asyncHandler(async (req, res) => {
     const refreshToken = await generateRefreshToken(userNameExist?._id)
     console.log(refreshToken)
 
-    res.cookie("Refresh_token", refreshToken).status(200).json({
+    res.cookie("Refresh_token", refreshToken, {
+        domain: "https://notepad-rho-pink.vercel.app/"
+    }).status(200).json({
         message: "user Successfully login"
     })
 
