@@ -31,7 +31,7 @@ const UserSignup = asyncHandler(async (req, res) => {
     const newUser = await User.create(result)
     const refreshtoken = await generateRefreshToken(newUser._id)
     res.cookie("Refresh_token", refreshtoken, {
-        domain: "https://notepad-rho-pink.vercel.app/"
+        domain: "https://notepad-rho-pink.vercel.app"
     })
         .status(200).json({
             message: "successfully created",
@@ -60,7 +60,7 @@ const loginUser = asyncHandler(async (req, res) => {
     console.log(refreshToken)
 
     res.cookie("Refresh_token", refreshToken, {
-        domain: "https://notepad-rho-pink.vercel.app/"
+        domain: "https://notepad-rho-pink.vercel.app"
     }).status(200).json({
         message: "user Successfully login"
     })
