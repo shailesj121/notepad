@@ -31,10 +31,11 @@ const UserSignup = asyncHandler(async (req, res) => {
     const newUser = await User.create(result)
     const refreshtoken = await generateRefreshToken(newUser._id)
     res.cookie("Refresh_token", refreshtoken, {
+        SameSite:"None",
         secure: true
     })
         .status(200).json({
-            message: "successfullt created",
+            message: "successfully created",
         })
 })
 
@@ -60,6 +61,7 @@ const loginUser = asyncHandler(async (req, res) => {
     console.log(refreshToken)
 
     res.cookie("Refresh_token", refreshToken, {
+        SameSite:"None",
         secure: true
     }).status(200).json({
         message: "user Successfully login"
