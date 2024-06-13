@@ -9,7 +9,8 @@ const app = Express()
 app.use(Express.json());
 app.use(cors({
     origin: 'https://notepad-rho-pink.vercel.app',
-    credentials: 'omit'
+    credentials: true,
+    SameSite:"None",
 }));
 
 export default app
