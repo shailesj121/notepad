@@ -23,5 +23,6 @@ import userRouter from "./routes/user.route.js"
 import bodyParser from "body-parser";
 
 app.use(bodyParser.json())
+app.use(cookieParser());
 app.use("/api", router);
 app.use("/auth", userRouter)
