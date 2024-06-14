@@ -30,11 +30,7 @@ const UserSignup = asyncHandler(async (req, res) => {
     result.password = await bcrypt.hash(result.password, 10)
     const newUser = await User.create(result)
     const refreshtoken = await generateRefreshToken(newUser._id)
-    res.cookie("Refresh_token", refreshtoken, {
-        HttpOnly: true,
-        SameSite: false,
-        Secure: true
-    })
+    res.cookie("Refresh_token", refreshtoken,)
         .status(200).json({
             message: "successfully created",
         })
@@ -63,8 +59,6 @@ const loginUser = asyncHandler(async (req, res) => {
 
     res.cookie("Refresh_token", refreshToken, {
         HttpOnly: true,
-        SameSite: false,
-        Secure: true
     }).status(200).json({
         message: "user Successfully login"
     })
