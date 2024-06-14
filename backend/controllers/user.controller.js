@@ -59,6 +59,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
     res.cookie("Refresh_token", refreshToken, {
         domain: "notepad-rho-pink.vercel.app",
+        path: "/login",
         secure: true,
         sameSite: "Strict"
     }).status(200).json({
