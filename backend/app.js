@@ -21,8 +21,7 @@ import cookieParser from "cookie-parser";
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const apiProxy = createProxyMiddleware('/', {
-    target: 'https://notepadbackend-shailesh-bishts-projects.vercel.app',
-    changeOrigin: true, 
+    target: 'https://notepadbackend-shailesh-bishts-projects.vercel.app'
   });
 
 app.use(bodyParser.json())
