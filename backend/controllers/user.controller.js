@@ -59,6 +59,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
     res.cookie("Refresh_token", refreshToken, {
         domain: '.vercel.app',
+        sameSite: 'none', 
         httpOnly: true,
   secure: true
     }).status(200).json({
