@@ -60,7 +60,8 @@ const loginUser = asyncHandler(async (req, res) => {
     res.cookie("Refresh_token", refreshToken, {
         secure: true,
         httpOnly: true,
-        sameSite: "none"
+        sameSite: "Strict"
+        
     }).status(200).json({
         message: "user Successfully login"
     })
