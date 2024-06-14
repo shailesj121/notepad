@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { login } from "../services/signup";
 import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie"
 
 export default function Login() {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ export default function Login() {
     };
     const result = await login("/login", userfieldsvalue);
     console.log(result)
+    const {token} = result.body;
 
     if (result.data.message === "username") {
       setUservalidation({ username: "username incorrect" });
@@ -29,6 +31,9 @@ export default function Login() {
       setUservalidation({ password: "password incorrect" });
       return;
     }
+
+    const cookies = new Cookies(null, { path: '/' });
+    cookies.set("Refresh_token", token)
     navigate("/");
   };
   return (
