@@ -61,7 +61,6 @@ const loginUser = asyncHandler(async (req, res) => {
         domain: ".vercel.app",
         secure: true,
         sameSite: "Strict"
-
     }).status(200).json({
         message: "user Successfully login"
     })
