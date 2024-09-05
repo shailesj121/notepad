@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const navigate = useNavigate()
+  const [formvalidation, setFormValidation] = useState("")
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -20,8 +21,12 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setFormValidation("")
     const result = await signUp("/signup", formData) //return unique id
-    if(!result){return console.log("no result found")}  
+    if(!result){return console.log("no result found")}
+    if(result.data.message === "user Email already exist") {
+      return setFormValidation(result.data.message)
+    } 
         navigate("/")
   };
  
@@ -36,6 +41,7 @@ const Signup = () => {
       <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password" required />
       <button type="submit">Sign Up</button>
     </form>
+    <div>{formvalidation? formvalidation: null}</div>
     </div>
   );
 };

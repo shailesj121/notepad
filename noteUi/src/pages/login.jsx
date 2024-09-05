@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { login } from "../services/signup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Cookies from "universal-cookie"
 
 export default function Login() {
@@ -99,7 +99,9 @@ export default function Login() {
                 href="#"
                 className="text-xs text-indigo-500 hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
+                <Link to="/signup">
                 Create Account
+                </Link>
               </a>
             </div>
             <button

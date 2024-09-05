@@ -6,6 +6,7 @@ const app = Express()
 app.use(Express.json());
 app.use(cors({
     origin: 'https://notepad-rho-pink.vercel.app',
+    // origin: 'http://localhost:5173',
     credentials: true,
 }));
 
