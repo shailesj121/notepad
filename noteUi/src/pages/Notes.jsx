@@ -7,6 +7,7 @@ import { Button } from "antd";
 import { isUserLoggedIn, logout } from "../utils/auth.js";
 import { useNavigate } from "react-router-dom";
 import { CloseCircleTwoTone } from "@ant-design/icons";
+import addNotification from "react-push-notification";
 
 function Home() {
   const [showDiv, setShowDiv] = useState(true);
@@ -34,6 +35,11 @@ function Home() {
 
   useEffect(() => {
     fatchnotes();
+    addNotification({
+      title: "Now Get all the new feature Notification",
+      duration: 100000,
+      native: true,
+    });
   }, []);
 
   const addnotes = async (event) => {
