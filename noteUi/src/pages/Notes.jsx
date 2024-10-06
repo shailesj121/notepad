@@ -4,6 +4,7 @@ import { deleteNote, postNote } from "../services/notesFatch.js";
 import { getNotes } from "../services/notesFatch.js";
 import { UpdateNote } from "../services/notesFatch.js";
 import { Button } from "antd";
+import gsap from "gsap";
 import { isUserLoggedIn, logout } from "../utils/auth.js";
 import { useNavigate } from "react-router-dom";
 import { CloseCircleTwoTone } from "@ant-design/icons";
@@ -24,7 +25,7 @@ function Home() {
   };
 
   const fatchnotes = async () => {
-    const {userid} = isUserLoggedIn()
+    const { userid } = isUserLoggedIn();
     const result = await getNotes(`/getnotes`, userid);
     if (result) {
       setNotes(result?.data);
@@ -33,18 +34,9 @@ function Home() {
     console.log("notfatched");
   };
 
-  useEffect(() => {
-    fatchnotes();
-    addNotification({
-      title: "Now Get all the new feature Notification",
-      duration: 100000,
-      native: true,
-    });
-  }, []);
-
   const addnotes = async (event) => {
     event.preventDefault();
-    const {userid} = isUserLoggedIn()
+    const { userid } = isUserLoggedIn();
     await postNote("/notes", {
       User: userid,
       noteTitle: title,
@@ -111,6 +103,18 @@ function Home() {
     setTitle("");
     setContent("");
   }
+
+  useEffect(() => {
+    fatchnotes();
+  }, []);
+
+  useEffect(() => {
+    addNotification({
+      title: "Now Get all the new feature Notification",
+      duration: 100000,
+      native: true,
+    });
+  }, []);
 
   return (
     <div className="notes flex justify-start h-screen  relative">
