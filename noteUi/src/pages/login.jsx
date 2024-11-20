@@ -18,6 +18,7 @@ export default function Login() {
   const userlogin = async (event) => {
     event.preventDefault()
     loading.load = true
+    console.log(loading)
     const [username, password] = event.target
     const userfieldsvalue = {
       username: username.value,
