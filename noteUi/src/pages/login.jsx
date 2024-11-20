@@ -7,9 +7,8 @@ export default function Login() {
   const navigate = useNavigate();
 
   const [uservalidation, setUservalidation] = useState("");
-  const loading = {
-    load: false
-  }
+  const [loading, setloading] = useState(false)
+
   useEffect(() => {
     {
       setUservalidation("");
@@ -17,7 +16,7 @@ export default function Login() {
   }, []);
   const userlogin = async (event) => {
     event.preventDefault()
-    loading.load = true
+    setloading(true)
     console.log(loading)
     const [username, password] = event.target
     const userfieldsvalue = {
@@ -27,7 +26,7 @@ export default function Login() {
     const result = await login("/login", userfieldsvalue);
     // console.log(result)
     const {token} = result.data
-    token? loading.load = false : loading.load = true
+    
 
     if (result.data.message === "username") {
       setUservalidation({ username: "username incorrect" });
@@ -110,7 +109,8 @@ export default function Login() {
                 </Link>
               </a>
             </div>
-            {loading.load? <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle fill="#5994C9" stroke="#5994C9" stroke-width="7" r="15" cx="40" cy="65"><animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.4"></animate></circle><circle fill="#5994C9" stroke="#5994C9" stroke-width="7" r="15" cx="100" cy="65"><animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.2"></animate></circle><circle fill="#5994C9" stroke="#5994C9" stroke-width="7" r="15" cx="160" cy="65"><animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="0"></animate></circle></svg> :<button  type="submit"  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            {loading.load? <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle fill="#5994C9" stroke="#5994C9" stroke-width="7" r="15" cx="40" cy="65"><animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.4"></animate></circle><circle fill="#5994C9" stroke="#5994C9" stroke-width="7" r="15" cx="100" cy="65"><animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.2"></animate></circle><circle fill="#5994C9" stroke="#5994C9" stroke-width="7" r="15" cx="160" cy="65"><animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="0"></animate></circle></svg> 
+            :<button  type="submit"  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               Login
             </button>
 }
