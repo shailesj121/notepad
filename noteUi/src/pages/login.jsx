@@ -38,6 +38,7 @@ export default function Login() {
 
     const cookies = new Cookies(null, { path: '/' });
     cookies.set("Refresh_token", token)
+    setloading(false)
     navigate("/")
   };
   return (
