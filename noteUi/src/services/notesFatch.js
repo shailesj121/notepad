@@ -10,6 +10,14 @@ export const postNote = async (url, data) => {
   }
 };
 
+export const pinNote = async (url, Id) => {
+  try{
+    return await axios.post(`${Varcel_Fatch_Url_API}${url}`, Id)
+  } catch{
+    console.log(error)
+  }
+}
+
 export const getNotes = async (url, userId) => {
   try {
     // return await axios.get(`${FATCH_URL_API}${url}`, {

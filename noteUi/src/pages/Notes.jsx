@@ -9,6 +9,7 @@ import { isUserLoggedIn, logout } from "../utils/auth.js";
 import { useNavigate } from "react-router-dom";
 import { CloseCircleTwoTone } from "@ant-design/icons";
 import addNotification from "react-push-notification";
+import pin from "../utils/pin.js";
 
 function Home() {
   const [showDiv, setShowDiv] = useState(true);
@@ -19,6 +20,8 @@ function Home() {
   const [search, setSearch] = useState("");
   const [selectedNote, setSelectedNote] = useState(null);
   const navigate = useNavigate();
+
+  pin()
 
   const toggleDiv = () => {
     setShowDiv(!showDiv);
@@ -226,8 +229,11 @@ function Home() {
             notes.map((note) => (
               <div
                 key={note.noteId}
-                className="flex-initial hover:scale-105 ease-in-out duration-300 w-64 sm:w-1/2 md:w-1/3 lg:w-1/4 relative "
+                className="flex-initial cursor-pointer hover:scale-105 ease-in-out duration-300 w-64 sm:w-1/2 md:w-1/3 lg:w-1/4 relative "
               >
+                <img className="pin" onClick={(event)=> {
+                  pin(note.noteId)
+                }} width="32" height="32" src="https://img.icons8.com/windows/32/pin3.png" alt="pin3"/>
                 <div onClick={() => handelClickNote(note)}>
                   <button
                     className="absolute top-3 right-5 font-bold"

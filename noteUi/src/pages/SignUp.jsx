@@ -1,8 +1,11 @@
-import  { useState } from 'react';
+import  { useRef, useState } from 'react';
 import { signUp } from '../services/signup';
 import { useNavigate } from 'react-router-dom';
+import * as THREE from 'three';
 
 const Signup = () => {
+const canvas = useRef(null)
+
   const navigate = useNavigate()
   const [formvalidation, setFormValidation] = useState("")
   const [formData, setFormData] = useState({
@@ -35,6 +38,7 @@ const Signup = () => {
 
   return (
     <div className='relative'>
+    <canvas ref={canvas}></canvas>
     <form onSubmit={handleSubmit}>
       <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Username" required />
       <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required />

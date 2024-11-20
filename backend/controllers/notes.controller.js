@@ -22,6 +22,7 @@ const deleteNoteController = asyncHandler(
    }
 );
 
+
 const updateNoteController = asyncHandler(
 
    async (req, res) => {
@@ -105,4 +106,9 @@ const noteGetController = asyncHandler(async (req, res) => {
    )));
 })
 
-export { notecontroller, noteGetController, updateNoteController, deleteNoteController };
+const pinNoteController = asyncHandler(async (req, res) => {
+    console.log(req.headers)
+})
+
+
+export { notecontroller, noteGetController, updateNoteController, deleteNoteController, pinNoteController };
