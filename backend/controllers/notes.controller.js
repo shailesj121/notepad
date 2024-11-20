@@ -107,7 +107,7 @@ const noteGetController = asyncHandler(async (req, res) => {
 })
 
 const pinNoteController = asyncHandler(async (req, res) => {
-    console.log(req.headers)
+    console.log(req.headers.authorization)
 })
 
 
