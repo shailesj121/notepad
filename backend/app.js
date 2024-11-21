@@ -1,11 +1,12 @@
 import Express from "express";
+import 'dotenv/config'
 import cors from "cors";
 
 const app = Express()
 
 app.use(Express.json());
 app.use(cors({
-    origin: 'https://notepad-rho-pink.vercel.app',
+    origin: process.env.ORIGIN_URL,
     // origin: 'http://localhost:5173',
     credentials: true,
 }));

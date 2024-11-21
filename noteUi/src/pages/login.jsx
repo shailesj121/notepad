@@ -22,24 +22,26 @@ export default function Login() {
       username: username.value,
       password: password.value,
     };
-    const result = await login("/login", userfieldsvalue);
-    // console.log(result)
-    const {token} = result.data
-    
+    try{
+      const result = await login("/login", userfieldsvalue);
+      const {token} = result?.data
+      if (result?.data?.message === "username") {
+        setUservalidation({ username: "username incorrect" });
+        return;
+      }
+      if (result?.data?.message === "password") {
+        setUservalidation({ password: "password incorrect" });
+        return;
+      }
+  
+      const cookies = new Cookies(null, { path: '/' });
+      cookies.set("Refresh_token", token) 
+      navigate("/")
 
-    if (result.data.message === "username") {
-      setUservalidation({ username: "username incorrect" });
-      return;
-    }
-    if (result.data.message === "password") {
-      setUservalidation({ password: "password incorrect" });
-      return;
-    }
-
-    const cookies = new Cookies(null, { path: '/' });
-    cookies.set("Refresh_token", token)
-    setloading(false)
-    navigate("/")
+    }catch(err){
+    setloading(false)  
+    } 
+  
   };
   return (
     <>
@@ -75,6 +77,7 @@ export default function Login() {
               <input
                 type="password"
                 id="password"
+                autoComplete="true"
                 className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 placeholder="Enter your password"
                 required
@@ -92,7 +95,7 @@ export default function Login() {
                   type="checkbox"
                   id="remember"
                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 focus:outline-none"
-                  checked
+                  // checked
                 />
                 <label
                   className="ml-2 block text-sm text-gray-700 dark:text-gray-300"
@@ -100,16 +103,12 @@ export default function Login() {
                   Remember me
                 </label>
               </div>
-              <a
-                href="#"
-                className="text-xs text-indigo-500 hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                <Link to="/signup">
+                <Link to="/signup" className="text-xs text-indigo-500 hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Create Account
                 </Link>
-              </a>
+              
             </div>
-            {loading? <svg xmlns="http://www.w3.org/2000/svg" style={{width: "100%", height: "50px"}} viewBox="0 0 200 200"><circle fill="#5994C9" stroke="#5994C9" stroke-width="7" r="15" cx="40" cy="65"><animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.4"></animate></circle><circle fill="#5994C9" stroke="#5994C9" stroke-width="7" r="15" cx="100" cy="65"><animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.2"></animate></circle><circle fill="#5994C9" stroke="#5994C9" stroke-width="7" r="15" cx="160" cy="65"><animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="0"></animate></circle></svg> 
+            {loading? <svg xmlns="http://www.w3.org/2000/svg" style={{width: "100%", height: "50px"}} viewBox="0 0 200 200"><circle fill="#5994C9" stroke="#5994C9" strokeWidth="7" r="15" cx="40" cy="65"><animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.4"></animate></circle><circle fill="#5994C9" stroke="#5994C9" strokeWidth="7" r="15" cx="100" cy="65"><animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.2"></animate></circle><circle fill="#5994C9" stroke="#5994C9" strokeWidth="7" r="15" cx="160" cy="65"><animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="0"></animate></circle></svg> 
             :<button  type="submit"  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               Login
             </button>
