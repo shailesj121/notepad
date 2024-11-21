@@ -8,11 +8,11 @@ import { pinNote } from "../services/notesFatch";
  */
 
 async function pin(noteId){
-    //get the id of tf the note
+    //get the id of the note
     //add the pin should be true
     //update the database
     console.log(noteId)
-    return await pinNote("/pin", noteId)
+    // return await pinNote("/pin", noteId)
 }
 
 export default pin
