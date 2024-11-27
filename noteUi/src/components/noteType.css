@@ -1,0 +1,45 @@
+
+
+      @keyframes componentAnimation {
+        0% {
+          color: transparent;
+          border-radius: 25px;
+          width: 10%;
+          box-shadow: 0px 0px 0px 0px #a2ffa2b5;
+        }
+        50% {
+          
+          /* transform: scaleX(0.42); */
+          color: transparent;
+          box-shadow: 0px 0px 0px 0px #a2ffa2b5;
+        }
+        80% {
+          color: transparent;
+          box-shadow: 0px 0px 0px 0px #a2ffa2b5;
+        }
+        100% {
+          /* transform: scaleX(1); */
+          border-radius: 50px;
+          width: 100%;
+          color: #174e17;
+        }
+      }
+
+      .outer-content {
+        width: max-content;
+      }
+
+      .content {
+        background: #b3ffb3cf;
+        box-shadow: 0px 0px 7px -3px #a2ffa2b5;
+        border: 1px solid;
+        padding: 3px 10px;
+        display: inline-block;
+        color: transparent;
+        border-radius: 50%;
+        line-height: 1.0em;
+        /* transform: scaleX(0.42); */
+        border-color: #217021;
+        animation: componentAnimation 1s cubic-bezier(0, 0, 0.2, 1) forwards;
+      }
+   

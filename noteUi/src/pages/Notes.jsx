@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { CloseCircleTwoTone } from "@ant-design/icons";
 import addNotification from "react-push-notification";
 import pin from "../utils/pin.js";
+import NoteType from "../components/noteType.jsx";
 
 function Home() {
   const [showDiv, setShowDiv] = useState(true);
@@ -21,7 +22,7 @@ function Home() {
   const [selectedNote, setSelectedNote] = useState(null);
   const navigate = useNavigate();
 
-  pin()
+  pin();
 
   const toggleDiv = () => {
     setShowDiv(!showDiv);
@@ -229,14 +230,21 @@ function Home() {
             notes.map((note) => (
               <div
                 key={note.noteId}
-                className="flex-initial cursor-pointer hover:scale-105 ease-in-out duration-300 w-64 sm:w-1/2 md:w-1/3 lg:w-1/4 relative "
+                className="flex-initial hover:scale-105 ease-in-out duration-300 w-64 sm:w-1/2 md:w-1/3 lg:w-1/4 relative coustom-hover"
               >
-                <img className="pin" onClick={(event)=> {
-                  pin(note.noteId)
-                }} width="32" height="32" src="https://img.icons8.com/windows/32/pin3.png" alt="pin3"/>
-                <div onClick={() => handelClickNote(note)}>
-                  <button
-                    className="absolute top-3 right-5 font-bold"
+                {/* <img
+                  className="pin"
+                  onClick={(event) => {
+                    pin(note.noteId);
+                  }}
+                  width="32"
+                  height="32"
+                  src="https://img.icons8.com/windows/32/pin3.png"
+                  alt="pin3"
+                /> */}
+                <div>
+                  <img className="absolute w-4 top-4 right-11 show cursor-pointer " onClick={() => handelClickNote(note)} src="../public/assets/img/edit.svg"></img><button
+                    className="absolute top-3 right-5 font-bold show"
                     onClick={(event) =>
                       deletenote(event, note.noteId, note.title)
                     }
@@ -244,11 +252,12 @@ function Home() {
                     <CloseCircleTwoTone />
                   </button>
 
-                  <div className=" bg-gray-600  border-solid rounded-md m-3">
-                    <h2 className="font-bold text-slate-50 pl-5 pt-2 pb-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+                  <div className="bg-white p-5 pt-2 border-solid rounded-md m-3">
+                    <NoteType/>
+                    <h2 className="font-bold mb-1">
                       {note.title}
                     </h2>
-                    <p className="text-slate-50  p-5 pt-2">{note.content}</p>
+                    <p className="">{note.content}</p>
                   </div>
                 </div>
               </div>

@@ -45,3 +45,11 @@ padding-right: 7%;
     scale: .7;
     cursor: pointer;
 }
+
+.coustom-hover:hover .show{
+ visibility: visible;
+}
+
+.coustom-hover .show{
+    visibility: hidden;
+   }
