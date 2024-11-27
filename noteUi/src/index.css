@@ -53,3 +53,23 @@ padding-right: 7%;
 .coustom-hover .show{
     visibility: hidden;
    }
+
+
+   /* [tool-tip]:hover {
+    position: relative;
+   }
+    */
+   [tool-tip]:hover:after {
+    content: attr(tool-tip);
+    position: absolute;
+    top: 100%;
+    font-size: 12px;
+    border: 0px;
+    font-weight: 400;
+    padding: 2px 7px;
+    border-radius: 5px;
+    left: 50%;
+    background: rgb(86, 86, 86);
+    color: white;
+    transform: translate(-50%);
+   }

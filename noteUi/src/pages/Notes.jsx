@@ -243,7 +243,15 @@ function Home() {
                   alt="pin3"
                 /> */}
                 <div>
-                  <img className="absolute w-4 top-4 right-11 show cursor-pointer " onClick={() => handelClickNote(note)} src="../public/assets/img/edit.svg"></img><button
+                  <span className="absolute w-4 top-4 right-11 show " tool-tip="Edit"><img
+                    className="cursor-pointer "
+                    data-tooltip-text="asdfsd"
+                    onClick={() => handelClickNote(note)}
+                    src="../public/assets/img/edit.svg"
+                  ></img>
+                  </span>
+                  <button
+                    tool-tip="Delete"
                     className="absolute top-3 right-5 font-bold show"
                     onClick={(event) =>
                       deletenote(event, note.noteId, note.title)
@@ -253,10 +261,8 @@ function Home() {
                   </button>
 
                   <div className="bg-white p-5 pt-2 border-solid rounded-md m-3">
-                    <NoteType/>
-                    <h2 className="font-bold mb-1">
-                      {note.title}
-                    </h2>
+                    <NoteType />
+                    <h2 className="font-bold mb-1">{note.title}</h2>
                     <p className="">{note.content}</p>
                   </div>
                 </div>
