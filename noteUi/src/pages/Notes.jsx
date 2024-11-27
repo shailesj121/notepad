@@ -247,7 +247,7 @@ function Home() {
                     className="cursor-pointer "
                     data-tooltip-text="asdfsd"
                     onClick={() => handelClickNote(note)}
-                    src="../public/assets/img/edit.svg"
+                    src="https://raw.githubusercontent.com/shailesj121/notepad/199e9777c91832d18f840396fed82a15b9f738b1/noteUi/public/assets/img/edit.svg"
                   ></img>
                   </span>
                   <button
